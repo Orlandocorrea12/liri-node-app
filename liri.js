@@ -15,13 +15,14 @@ var moment = require('moment')
 var fs = require("fs")
 
 var spotify = new Spotify(keys.spotify);
-
+// inital prompt to fet everything started
 inquirer.prompt([{
     message: "What topics would you like to search for? ",
     type: "list",
     name: "topics",
     choices: ["Music", "Movies", "Bands", "Do what it says"]
 }]).then(answers => {
+    // beginning of spotify search
     if (answers.topics === "Music") {
         inquirer.prompt([{
             message: "What song would you like to search for?",
@@ -40,6 +41,8 @@ inquirer.prompt([{
             };
         });
     };
+    // end of spotify search
+    // beginning of bandsintown api
     if (answers.topics === "Bands") {
         console.log("It worked")
         inquirer.prompt([{
@@ -58,6 +61,8 @@ inquirer.prompt([{
             };
         });
     };
+    // end of bit api 
+    //start of omdb api search
     if (answers.topics === "Movies") {
         console.log("It works")
         inquirer.prompt([{
@@ -83,6 +88,7 @@ inquirer.prompt([{
             };
         });
     };
+    // start of random serach 
     if (answers.topics === "Do what it says") {
         console.log("success");
         inquirer.prompt([{
@@ -91,6 +97,7 @@ inquirer.prompt([{
             name: "topics",
             choices: ["Music", "Movies", "Bands"]
         }]).then(answers => {
+            // music random search
             if (answers.topics === "Music") {
                 fs.readFile("random.txt", "utf8", function (err, data) {
                     var randomtxt = data.split(",")
@@ -110,6 +117,7 @@ inquirer.prompt([{
                     });
                 });
             };
+            // movies random search
             if (answers.topics === "Movies") {
                 fs.readFile("random.txt", "utf8", function (err, data) {
                     var randomtxt = data.split(",")
@@ -135,6 +143,7 @@ inquirer.prompt([{
                 });
 
             };
+            // bands random search
             if (answers.topics === "Bands") {
                 fs.readFile("random.txt", "utf8", function (err, data) {
                     var randomtxt = data.split(",")
